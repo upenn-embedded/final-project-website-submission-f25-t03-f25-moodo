@@ -3,11 +3,9 @@
 
 #include <stdint.h>
 
-/* SPI ?? */
 #define RA8875_DATAWRITE 0x00
 #define RA8875_CMDWRITE  0x80
 
-/* ????????? Adafruit ??????? */
 #define RA8875_PWRR   0x01
 #define RA8875_MRWC   0x02
 #define RA8875_PCSR   0x04
@@ -48,20 +46,17 @@
 #define RA8875_P1CR   0x8A
 #define RA8875_P1DCR  0x8B
 
-/* PWRR ? */
 #define RA8875_PWRR_DISPON     0x80
 #define RA8875_PWRR_DISPOFF    0x00
 #define RA8875_PWRR_SLEEP      0x02
 #define RA8875_PWRR_NORMAL     0x00
 #define RA8875_PWRR_SOFTRESET  0x01
 
-/* SYSR ? */
 #define RA8875_SYSR_8BPP       0x00
 #define RA8875_SYSR_16BPP      0x0C
 #define RA8875_SYSR_MCU8       0x00
 #define RA8875_SYSR_MCU16      0x03
 
-/* PCSR ? */
 #define RA8875_PCSR_PDATR      0x00
 #define RA8875_PCSR_PDATL      0x80
 #define RA8875_PCSR_CLK        0x00
@@ -69,15 +64,12 @@
 #define RA8875_PCSR_4CLK       0x02
 #define RA8875_PCSR_8CLK       0x03
 
-/* MWCR0 ? */
 #define RA8875_MWCR0_GFXMODE   0x00
 #define RA8875_MWCR0_LRTD      0x00
 
-/* PWM1 ?? */
 #define RA8875_P1CR_ENABLE     0x80
 #define RA8875_P1CR_PWMOUT     0x00
 
-/* ?????? */
 void  spi_init(void);
 void  ra8875_init_800x480(void);
 void  ra8875_writeCommand(uint8_t cmd);
@@ -88,4 +80,4 @@ void  ra8875_fillScreen(uint16_t color);
 uint8_t ra8875_readReg(uint8_t reg);
 
 
-#endif /* RA8875_DRV_H */
+#endif 

@@ -23,14 +23,20 @@
 
 // Mood is kept for future display / eye expression, but is NOT used to
 // trigger any sounds. Sounds depend only on distance, humidity and light.
-int      mood  = 5;      // 0=sleep,1=happy,2=hot,3=cold,4=thirsty,5=normal
+int      mood  = 0;      // 0=sleep,1=happy,2=hot,3=cold,4=thirsty,5=normal
 int      last_mood = 0;  // 0=sleep,1=happy,2=hot,3=cold,4=thirsty,5=normal
 uint16_t light = 0;      // photoresistor ADC reading (PC0 / ADC0)
+int      textcode = 0;   // 1=text change; 0= text keep
 
 // Environment data from SHT40
 typedef struct {
     float    temp_c;
+    float    temp_c_pre;
     float    rh_percent;
+    float    rh_percent_pre;
+    uint16_t minute_pre;
+    uint16_t hour_pre;
+    uint16_t second_pre;
     uint16_t raw_t;
     uint16_t raw_rh;
     uint8_t  valid;      // 1 if last read was successful
@@ -247,16 +253,16 @@ static void decide_mood(void)
 
     int old = mood;
 
-    if (light < 250) {
+    if (light < 400) {//250
         mood = 0;     // sleep
-    } else if ((g_env.temp_c >= 25.0f) && (g_env.temp_c <= 28.0f) &&
-               (g_env.rh_percent >= 60.0f) && (g_env.rh_percent <= 70.0f)) {
+    } else if ((g_env.temp_c >= 24.0f) && (g_env.temp_c <= 25.0f) &&
+               (g_env.rh_percent >= 60.0f) && (g_env.rh_percent <= 90.0f)) {//rh<70
         mood = 1;     // happy
-    } else if (g_env.temp_c >= 35.0f) {
+    } else if (g_env.temp_c >= 26.0f) {//t>35
         mood = 2;     // hot
-    } else if (g_env.temp_c <= 5.0f) {
+    } else if (g_env.temp_c <= 22.0f) {//t<5
         mood = 3;     // cold
-    } else if (g_env.rh_percent < 25.0f) {
+    } else if (g_env.rh_percent < 45.0f) { //rh<10
         mood = 4;     // thirsty (logical label only, no sound here)
     } else {
         mood = 5;     // normal
@@ -265,23 +271,18 @@ static void decide_mood(void)
     printf("MOOD: old=%d new=%d\r\n", old, mood);
 }
 
+//emotion update
 static void update_emotion_display(void)
 {
     if (mood != last_mood) {
-        emotion_set(mood);  //change
+        emotion_set(mood, COLOR_WHITE);  //change
     }
     last_mood = mood;
 }
 
-static void update_time_display(void){
-    gfx_draw_time_above_face_static(hour, minute,
-                                    COLOR_YELLOW, COLOR_BLACK);
-}
-
-static void update_sensor_display(void)
+static void emotion_move(void)
 {
-    gfx_draw_sensors(temp, water,
-                     COLOR_YELLOW, COLOR_BLACK);
+    emotion_animate_step(mood);
 }
 
 
@@ -311,7 +312,7 @@ static void detect_distance_and_sounds(void)
 
     // With ~1 s main-loop delay, 60 loops ~ 60 seconds
     const uint16_t NEAR_THRESHOLD_LOOPS  = 10;
-    const uint16_t FAR_THRESHOLD_LOOPS   = 5;
+    const uint16_t FAR_THRESHOLD_LOOPS   = 2;
 
     // Persistent state across calls
     static uint8_t  last_near        = 0;
@@ -423,9 +424,36 @@ static void real_time_clock(void)
         printf("RTC: %02u:%02u:%02u  %02u/%02u/20%02u\r\n",
                t.hour, t.minute, t.second,
                t.month, t.date, t.year);
+        
+
+        //if(g_env.temp_c_pre != g_env.temp_c || g_env.rh_percent_pre != g_env.rh_percent || g_env.minute_pre != t.minute || g_env.hour_pre != t.hour)
+        if(g_env.minute_pre != t.minute || g_env.hour_pre != t.hour){
+            draw_time_center(t.hour, t.minute,
+                        COLOR_YELLOW, COLOR_BLACK);
+            
+            g_env.minute_pre = t.minute;
+            g_env.hour_pre = t.hour;
+        }
+        
+        if(g_env.second_pre != t.second){
+            toggle_colon(COLOR_YELLOW, COLOR_BLACK);
+            g_env.second_pre = t.second;
+        }
+        
+        if((int)g_env.temp_c_pre != (int)g_env.temp_c || (int)g_env.rh_percent_pre != (int)g_env.rh_percent){
+            draw_temp_water_side(g_env.temp_c, g_env.rh_percent,
+                            COLOR_YELLOW, COLOR_BLACK);
+            
+            g_env.temp_c_pre = g_env.temp_c;
+            g_env.rh_percent_pre = g_env.rh_percent;
+        }
+        
+            
     } else {
         printf("RTC: read ERROR\r\n");
     }
+    
+    
 }
 
 // -----------------------------------------------------------------------------
@@ -439,11 +467,11 @@ void pump_init(void) {
 }
 
 void pump_on(void) {
-    PORTD |= (1 << PD7);
+    PORTD |= (1 << PD7);  
 }
 
 void pump_off(void) {
-    PORTD &= ~(1 << PD7);
+    PORTD &= ~(1 << PD7);  
 }
 
 void pump_scheduler(void)
@@ -458,16 +486,16 @@ void pump_scheduler(void)
         printf("PUMP: ON\n");
     }
 
-    if (second_counter == 6) {   // after 5 seconds (1..5)
+    if (second_counter == 4) {   // after 5 seconds (1..5)
         pump_off();
         printf("PUMP: OFF\n");
     }
 
-    if (second_counter >= 60) {  // reset every minute
+    if (second_counter >= 20) {  // reset every minute
         second_counter = 0;
     }
 
-}
+}   
 
 // -----------------------------------------------------------------------------
 // Global initialisation
@@ -500,29 +528,39 @@ static void init(void)
     pump_init();
 
     printf("INFO: SPI/LCD init...\r\n");
+    
+    //Emotion and text 
     spi_init();
     ra8875_init_800x480();
     ra8875_fillScreen(COLOR_BLACK);
-    printf("INFO: LCD cleared to BLACK.\r\n");
-
-    emotion_init();
-    time_init();
+    
+    emotion_set(5,COLOR_WHITE);
+    time_init(25, 60, 12, 34, COLOR_YELLOW, COLOR_BLACK);
 
 
     // (Optional) set a known initial time; remove this when RTC already keeps time
     ds1307_time_t t;
-    t.second = 50;
-    t.minute = 37;
-    t.hour   = 18;
-    t.day    = 2;
-    t.date   = 18;
+    t.second = 00;
+    t.minute = 20;
+    t.hour   = 13;
+    t.day    = 5;
+    t.date   = 21;
     t.month  = 11;
     t.year   = 25;
-
+    
     if (DS1307_set_time(&t) == 0) {
         printf("INFO: RTC time set to 18:37:50 11/18/2025.\r\n");
     }
+    
+    //initial environment data
+    g_env.temp_c_pre = 0;
+    g_env.rh_percent_pre = 0;
 
+    //initial time for text change
+    g_env.minute_pre = 32;
+    g_env.hour_pre = 14;
+    g_env.second_pre = 50;
+    
     // ADC for photoresistor
     adc_init();
 
@@ -563,6 +601,8 @@ int main(void)
 
         // 3) Use current light + environment to compute mood (for debug only)
         decide_mood();
+        update_emotion_display();
+        emotion_move();
 
         // 4) Check humidity and trigger THIRSTY if it becomes very dry
         update_humidity_sound();
@@ -578,6 +618,8 @@ int main(void)
 
         // Blink on-board LED so we can see the main loop is alive conflict with SPI
         //PORTB ^= (1 << PB5);
+        
+        //text update
 
         _delay_ms(1000);          // main loop period ~1 s
     }
