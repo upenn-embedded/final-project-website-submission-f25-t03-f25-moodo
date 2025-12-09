@@ -434,6 +434,4 @@ Our enclosure must be waterproof, because unlike many other projects, our system
 
 ## References
 
-Adafruit_RA8875.cpp
-
-Adafruit_RA8875.h
+Adafruit_RA8875.cpp；Adafruit_RA8875.h；[https://github.com/adafruit/Adafruit_RA8875](https://github.com/adafruit/Adafruit_RA8875?utm_source=chatgpt.com)
