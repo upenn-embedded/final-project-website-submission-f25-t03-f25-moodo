@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Final Project – Course Website</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f7f7f7;
+            color: #333;
+            line-height: 1.6;
+        }
+        header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px 10%;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 32px;
+        }
+        header p {
+            margin: 5px 0 0;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        nav {
+            background: #34495e;
+            padding: 10px 10%;
+        }
+        nav a {
+            color: #ecf0f1;
+            text-decoration: none;
+            margin-right: 18px;
+            font-size: 14px;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .container {
+            padding: 30px 10%;
+            max-width: 1000px;
+            margin: auto;
+            background: white;
+        }
+        h2 {
+            color: #2c3e50;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 4px;
+            margin-top: 40px;
+        }
+        h3 {
+            color: #34495e;
+            margin-top: 20px;
+        }
+        .section {
+            margin-top: 15px;
+        }
+        .video-wrapper {
+            margin: 15px 0;
+        }
+        .video-note {
+            font-size: 13px;
+            color: #777;
+            margin-top: 5px;
+        }
+        .images-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .images-grid img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            background: #eee;
+        }
+        .caption {
+            font-size: 13px;
+            color: #555;
+            margin-top: 5px;
+        }
+        .req-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+        .req-table th, .req-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            vertical-align: top;
+        }
+        .req-table th {
+            background: #f0f0f0;
+            text-align: left;
+        }
+        .subnote {
+            font-size: 13px;
+            color: #777;
+        }
+        .highlight-box {
+            background: #f1f7ff;
+            border-left: 4px solid #2980b9;
+            padding: 10px 12px;
+            font-size: 14px;
+            margin: 10px 0 15px;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #2c3e50;
+            color: white;
+            margin-top: 40px;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Moodo-The Electronic Plant Pet</h1>
+    <p>ESE5190 · Team 03</p>
+</header>
+
+<nav>
+    <a href="#video">1. Video</a>
+    <a href="#images">2. Images</a>
+    <a href="#results">3. Results</a>
+    <a href="#conclusion">4. Conclusion</a>
+</nav>
+
+<div class="container">
+    <!-- Project Info Section -->
+    <h2 id="info">Project Information</h2>
+    <div class="section">
+        <p><strong>Team Name:</strong> Moodo</p>
+        <p><strong>Team Members:</strong> Houjie Xiong, Yisen Li, Zhihui Wang</p>
+        <p><strong>GitHub Repository URL:</strong> 
+            <a href="https://github.com/ese3500/final-project-prime-hydration" target="_blank">
+                https://github.com/ese3500/final-project-prime-hydration
+            </a>
+        </p>
+        <p><strong>GitHub Pages Website URL:</strong> 
+            <a href="https://ese3500.github.io/final-project-prime-hydration/" target="_blank">
+                https://ese3500.github.io/final-project-prime-hydration/
+            </a>
+        </p>
+        <p><strong>Description of Hardware:</strong> ATmega328PB</p>
+    </div>
+
+    <!-- 1. Video -->
+    <h2 id="video">1. Video</h2>
+    <div class="section">
+
+        <div class="video-wrapper">
+            <!-- ✅ 如果用 Google Drive，可以删掉 iframe，改用下面这一行纯链接 -->
+            <p><a href="https://drive.google.com/file/d/1tba6R1UWRpnd1wjd9sBgCogl1hPzVUH_/view?usp=drivesdk" target="_blank">Click here to watch the demo video</a></p>
+        </div>
+    </div>
+
+    <!-- 2. Images -->
+    <h2 id="images">2. Images</h2>
+    <div class="section">
+
+        <div class="images-grid">
+            <!-- ✅ 修改为你自己的图片路径。例如：images/front.jpg -->
+            <div>
+                <img src="image/i1.png" alt="Device front view">
+            </div>
+            <div>
+                <img src="image/i2.png" alt="Device side view">
+            </div>
+             <div>
+                <img src="image/i3.png" alt="Device front view">
+            </div>
+             <div>
+                <img src="image/i4.png" alt="Device front view">
+            </div>
+             <div>
+                <img src="image/i5.png" alt="Device front view">
+            </div>
+             <div>
+                <img src="image/i6.jpg" alt="Device front view">
+            </div>
+             <div>
+                <img src="image/i7.jpg" alt="Device front view">
+            </div>
+             <div>
+                <img src="image/i8.png" alt="Device front view">
+            </div>
+             <div>
+                <img src="image/i9.jpg" alt="Device front view">
+            </div>
+        </div>
+
+        <h3 style="margin-top:25px;">Course Website Thumbnail</h3>
+        <p>
+            The following image will be used for the course website.
+        </p>
+        <img src="image/i10.png"
+             alt="400x400 project thumbnail"
+             width="400" height="400"
+             style="border-radius:8px;border:1px solid #ccc; background:#eee;">
+    </div>
+
+    <!-- 3. Results -->
+    <h2 id="results">3. Results</h2>
+    <div class="section">
+        <!-- 3.1 SRS -->
+        <h3 id="srs">3.1 Software Requirements Specification (SRS) Results</h3>
+        <div class="section">
+           
+            <table class="req-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Description</th>
+                        <th>Validation Outcome</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>SRS-01</td>
+                        <td>
+                            If a user remains within ≤60 cm for ≥1 hour, play a reminder (timer-based; cadence error ≤±5s).
+                        </td>
+                        <td>
+                            Confirmed. The RTC has been validated with a 1 s/hour cadence error which meet our requirement, and the system successfully triggers a voice reminder when the user stays nearby for an extended period.
+                        </td>
+                    </tr>
+                    <!-- ✅ 再加一个示例（请改成你自己的） -->
+                    <tr>
+                        <td>SRS-02</td>
+                        <td>
+                            The LCD provides a face page and a data page; data page shows temperature, humidity, and time (page switch + data refresh period ≤2 s).
+                        </td>
+                        <td>
+                            Confirmed. Temperature and humidity readings update accurately, and the data refresh cycle is now 1 second.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>SRS-03</td>
+                        <td>
+                            When lux falls below the “night” threshold, enter Night Mode and play a “good-night” prompt (configurable threshold; state-change hysteresis ≤2 s; false triggers ≤1/hour).
+                        </td>
+                        <td>
+                            Confirmed. The system now reliably detects light-intensity changes and transitions into Night Mode as expected.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>
+                Real-Time Clock (RTC): To verify the accuracy of the RTC, we used a smartphone clock as the reference time source. Across three separate one-hour tests, the RTC’s drift remained within ±1 second per hour, which meets our timing precision requirement.
+            </p>
+            <p>
+                Light Intensity Sensor: We evaluated the light sensor by manually blocking it with a finger and observing its response to sudden changes in illumination—it reacted instantly. We also turned off all room light sources to simulate nighttime conditions. Under these conditions, the analog reading consistently dropped below 300, so we set 300 as the threshold between “day mode” and “night mode.” This threshold is stable and repeatable across our tests.
+            </p>
+            <p>
+                Temperature and Humidity Sensor: Although we lack laboratory-grade equipment for absolute accuracy validation, we verified the sensor qualitatively. The readings remained stable and reasonable during normal operation. When a finger was brought close to the sensor, both temperature and humidity increased gradually, as expected. However, we currently cannot quantify the measurement error or test cold-side accuracy.
+            </p>
+            <p>
+                Ultrasonic (Distance Sensor): We tested the ultrasonic sensor at multiple distance ranges: 10–50 cm, 50–100 cm, and 100–200 cm.
+            </p>
+            <ul>
+                <li>At 10–50 cm, performance was excellent with errors within ±3 cm.</li>
+                <li>At 50–100 cm, errors increased to 5–15 cm.</li>
+                <li>At 100–200 cm, the error margin grew to 20–30 cm. These results match the typical behavior of low-cost ultrasonic modules, where accuracy decreases with distance.</li>
+            </ul>
+        </div>
+
+        <!-- 3.2 HRS -->
+        <h3 id="hrs">3.2 Hardware Requirements Specification (HRS) Results</h3>
+        <div class="section">
+            
+            <table class="req-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Description</th>
+                        <th>Validation Outcome</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>HRS-01</td>
+                        <td>
+                            Use ATmega328PB Xplained Mini @16 MHz with at least 1×TWI, 1×UART, ADC, and a 16-bit timer/input-capture.
+                        </td>
+                        <td>
+                            Confirmed. 
+                        </td>
+                    </tr>
+                    <!-- ✅ 再加一个示例（请改成你自己的） -->
+                    <tr>
+                        <td>HRS-02</td>
+                        <td>
+                            One TRIG and one ECHO routed to MCU digital I/O and timer input-capture (20–200 cm average error ≤±2 cm).
+                        </td>
+                        <td>
+                            Confirmed. 
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>HRS-03</td>
+                        <td>
+                            Mini MP3 module + microSD, UART-controlled, feeding a small power amp and speaker (≥70 dB SPL at 1 m; UART BER ≤10⁻⁵).
+                            Confirmed. 
+                        </td>
+                        <td>
+                            Achieved. (no micro SD need, soundboard has a 16MB flash)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>HRS-04</td>
+                        <td>
+                            0.96″ OLED (I²C or SPI) for face/data pages; status LEDs for network/fault (readable from 0–40 °C).
+                        </td>
+                        <td>
+                            Confirmed. We upgrade to a 5.0" LCD display
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- 4. Conclusion -->
+    <h2 id="conclusion">4. Conclusion</h2>
+    <div class="section">
+        <p>
+            Our project “The Electronic Plant” aims to use sensor technology, such as light sensing, humidity, vibration, ultrasonic sensors, etc., 
+            to transform ordinary plants into electronic pets that can interact with people. Our core features include: when a person walks up to our e-pet it plays a greeting, 
+            if you stay nearby for a while it gently reminds you to stand up and move around, and if you leave for some time it says it’s going to sleep. 
+            We also implemented facial expression changes and an automatic watering function based on the overall air humidity.
+        </p>
+        <p>
+            Throughout the project, we learned a lot about integrating multiple sensors and modules into a cohesive system. We faced challenges in ensuring reliable communication between components and managing power consumption effectively. 
+            We are proud of achieving smooth integration across multiple subsystems—sensing, audio, display, and user interaction. We successfully ran the RTC and SHT40 on a shared I²C bus, implemented responsive voice-line logic, 
+            and designed six emotion expressions mapped to real environmental conditions. Most importantly, we solved a major SRAM overflow issue by moving all bitmap data into Flash (PROGMEM), allowing the TFT screen to display both text and emoticons reliably. 
+            This debugging and system-level optimization was a significant accomplishment for our team.
+        <p>
+            Our enclosure must be waterproof, because unlike many other projects, our system includes an active watering mechanism. Even a single drop of water contacting the exposed circuit or 
+            metal connections could cause short-circuiting and permanently damage the electronics. Therefore, it is essential for us to design a safe, sealed, and reliable protective enclosure that prevents water while still maintaining a clean, 
+            simple, and appealing appearance. In addition, we plan to eliminate the use of breadboards and jumper wires, as they are prone to loose connections and are not suitable for long-term stability. We transition to more secure and permanent wiring solutions 
+            to ensure robustness and safety in the final system.
+        </p>
+    </div>
+
+</div>
+
+<footer>
+    ESE5190 · Team 03
+</footer>
+
+</body>
+</html>
